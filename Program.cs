@@ -13,6 +13,8 @@ namespace Chess_game
 
             Console.WriteLine("Position: " + p);
 
+            Board b = new Board(8, 8);
+            
         }
     }
 }
