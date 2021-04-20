@@ -9,9 +9,9 @@
         public int movementNr { get; protected set; }
         public Board board { get; protected set; }
 
-        public Piece(Position position, Color color, Board board)
+        public Piece(Board board, Color color)
         {
-            this.position = position;
+            this.position = null;
             this.color = color;
             this.board = board;
             this.movementNr = 0;
