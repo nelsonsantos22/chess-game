@@ -1,6 +1,4 @@
-﻿using board;
-
-namespace Chess_game.board
+﻿namespace board
 {
     class Piece
     {
@@ -18,5 +16,6 @@ namespace Chess_game.board
             this.board = board;
             this.movementNr = 0;
         }
+
     }
 }
