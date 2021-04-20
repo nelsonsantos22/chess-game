@@ -13,16 +13,21 @@ namespace Chess_game
             p = new Position(3, 4);
 
             
+            try
+            {
+                Board b = new Board(8, 8);
 
-            Board b = new Board(8, 8);
+                b.startPiece(new Tower(b, Color.Black), new Position(0, 0));
+                b.startPiece(new Tower(b, Color.Black), new Position(1, 3));
+                b.startPiece(new King(b, Color.Black), new Position(0, 1));
+                b.startPiece(new King(b, Color.Black), new Position(2, 4));
 
-            
-
-            b.startPiece(new Tower(b, Color.Black), new Position(0, 0));
-            b.startPiece(new Tower(b, Color.Black), new Position(1, 3));
-            b.startPiece(new King(b, Color.Black), new Position(2, 4));
-
-            Screen.printBoard(b);
+                Screen.printBoard(b);
+            }
+            catch (BoardException e)
+            {
+                Console.WriteLine(e.Message);
+            }
 
         }
     }
