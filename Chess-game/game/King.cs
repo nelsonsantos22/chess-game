@@ -12,5 +12,11 @@ namespace game
         {
             return "K";
         }
+
+
+        public override bool[,] possibleMoves()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
