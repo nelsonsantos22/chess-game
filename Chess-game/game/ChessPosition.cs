@@ -4,8 +4,8 @@ namespace game
 {
     internal class ChessPosition
     {
-        private char column { get; set; }
-        private int line { get; set; }
+        public char column { get; set; }
+        public int line { get; set; }
 
         public ChessPosition(char column, int line)
         {
@@ -13,12 +13,10 @@ namespace game
             this.line = line;
         }
 
-
         public Position toPosition()
         {
             return new Position(8 - line, column - 'a');
         }
-
 
         public override string ToString()
         {

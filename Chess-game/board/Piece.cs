@@ -5,42 +5,35 @@
 
         public Position position { get; set; }
         public Color color { get; protected set; }
-
-        public int moves { get; protected set; }
+        public int movesQnt { get; protected set; }
         public Board board { get; protected set; }
 
-
-        public Piece(Board board, Color color)
+        public Piece(Board gameBoard, Color color)
         {
             this.position = null;
+            this.board = gameBoard;
             this.color = color;
-            this.board = board;
-            this.moves = 0;
+            this.movesQnt = 0;
         }
-
 
         public void incrementMoves()
         {
-            moves++;
+            movesQnt++;
         }
-
 
         public void decrementMoves()
         {
-            moves--;
+            movesQnt--;
         }
 
-
-        // confirms if is possible to move to the position wanted
-        public bool isPossibleToMove()
+        public bool isTherePossibleMoves()
         {
-            bool[,] gameBoard = possibleMoves();
-
-            for(int i = 0; i < board.lines; i++)
+            bool[,] boardGame = possibleMoves();
+            for (int i = 0; i < board.lines; i++)
             {
-                for(int j = 0; j < board.columns; j++)
+                for (int j = 0; j < board.columns; j++)
                 {
-                    if(gameBoard[i, j])
+                    if (boardGame[i, j])
                     {
                         return true;
                     }
@@ -49,6 +42,10 @@
             return false;
         }
 
+        public bool possibleMove(Position position)
+        {
+            return possibleMoves()[position.line, position.column];
+        }
 
         public abstract bool[,] possibleMoves();
 

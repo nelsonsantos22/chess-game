@@ -9,26 +9,55 @@ namespace Chess_game
         static void Main(string[] args)
         {
 
-            Position p;
-            p = new Position(3, 4);
-
-            
             try
             {
-                Board b = new Board(8, 8);
+                ChessMatch match = new ChessMatch();
 
-                b.drawPiece(new Tower(b, Color.Black), new Position(0, 0));
-                b.drawPiece(new Tower(b, Color.Black), new Position(1, 3));
-                b.drawPiece(new King(b, Color.Black), new Position(0, 1));
-                b.drawPiece(new King(b, Color.Black), new Position(2, 4));
+                while (!match.matchFinnished)
+                {
 
-                Screen.printBoard(b);
+                    try
+                    {
+                        Console.Clear();
+                        Screen.printMatch(match);
+
+                        Console.WriteLine();
+                        Console.Write("Origin: ");
+                        Position origin = Screen.readChessPosition().toPosition();
+                        match.validateOriginPosition(origin);
+
+                        bool[,] possiblePositions = match.gameBoard.piece(origin).possibleMoves();
+
+                        Console.Clear();
+                        Screen.printBoard(match.gameBoard, possiblePositions);
+
+                        Console.WriteLine();
+                        Console.Write("Destiny: ");
+                        Position destiny = Screen.readChessPosition().toPosition();
+                        match.validateDestinyPosition(origin, destiny);
+
+                        Console.WriteLine("koi");
+                        match.yourTurn(origin, destiny);
+                        
+                        
+                    }
+                    catch (BoardException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
+                }
+                Console.Clear();
+                Screen.printMatch(match);
             }
             catch (BoardException e)
             {
                 Console.WriteLine(e.Message);
             }
 
+            Console.ReadLine();
         }
+
     }
+
 }

@@ -13,9 +13,75 @@ namespace game
             return "T";
         }
 
+
+        public bool canMove(Position position)
+        {
+            Piece piece = board.piece(position);
+            return piece == null || piece.color != color;
+        }
+
+
         public override bool[,] possibleMoves()
         {
-            throw new System.NotImplementedException();
+            bool[,] gameBoard = new bool[board.lines, board.columns];
+
+            Position position = new Position(0, 0);
+
+            //UP
+            position.defineValues(position.line - 1, position.column);
+            while(board.isValidPosition(position) && canMove(position))
+            {
+                gameBoard[position.line, position.column] = true;
+                if (board.piece(position) != null && board.piece(position).color != color)
+                {
+                    break;
+                }
+
+                position.line = position.line - 1;
+            }
+
+            //DOWN
+            position.defineValues(position.line + 1, position.column);
+            while (board.isValidPosition(position) && canMove(position))
+            {
+                gameBoard[position.line, position.column] = true;
+                if (board.piece(position) != null && board.piece(position).color != color)
+                {
+                    break;
+                }
+
+                position.line = position.line + 1;
+            }
+
+            //RIGHT
+            position.defineValues(position.line, position.column + 1);
+            while (board.isValidPosition(position) && canMove(position))
+            {
+                gameBoard[position.line, position.column] = true;
+                if (board.piece(position) != null && board.piece(position).color != color)
+                {
+                    break;
+                }
+
+                position.column = position.column + 1;
+            }
+
+            //LEFT
+            position.defineValues(position.line, position.column - 1);
+            while (board.isValidPosition(position) && canMove(position))
+            {
+                gameBoard[position.line, position.column] = true;
+                if (board.piece(position) != null && board.piece(position).color != color)
+                {
+                    break;
+                }
+
+                position.column = position.column - 1;
+            }
+
+
+            return gameBoard;
+
         }
     }
 }
