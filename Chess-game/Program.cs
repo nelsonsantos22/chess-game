@@ -36,7 +36,6 @@ namespace Chess_game
                         Position destiny = Screen.readChessPosition().toPosition();
                         match.validateDestinyPosition(origin, destiny);
 
-                        Console.WriteLine("koi");
                         match.yourTurn(origin, destiny);
                         
                         
