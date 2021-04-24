@@ -29,14 +29,14 @@ namespace Chess_game
                         bool[,] possiblePositions = match.gameBoard.piece(origin).possibleMoves();
 
                         Console.Clear();
-                        Screen.printBoard(match.gameBoard, possiblePositions);
+                        Screen.printBoard(match.gameBoard, possiblePositions, match);
 
                         Console.WriteLine();
                         Console.Write("Destiny: ");
                         Position destiny = Screen.readChessPosition().toPosition();
                         match.validateDestinyPosition(origin, destiny);
 
-                        match.yourTurn(origin, destiny);
+                        match.matchTurn(origin, destiny);
                         
                         
                     }

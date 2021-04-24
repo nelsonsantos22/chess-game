@@ -138,7 +138,7 @@ namespace game
 
 
 
-        public void yourTurn(Position origin, Position destiny)
+        public void matchTurn(Position origin, Position destiny)
         {
 
 
@@ -196,17 +196,46 @@ namespace game
 
         public void validateOriginPosition(Position position)
         {
+            validateIfOutOfBoard(position);
+            validateIfpIeceExists(position);
+            validateIfPieceIsOwnedByPlayer(position);
+            validateIfMovementExists(position);
+        }
+
+        private void validateIfMovementExists(Position position)
+        {
+            if (!gameBoard.piece(position).isTherePossibleMoves())
+            {
+                throw new BoardException("No movements allowed to that position!");
+            }
+        }
+
+        private void validateIfpIeceExists(Position position)
+        {
             if (gameBoard.piece(position) == null)
             {
                 throw new BoardException("Piece not found!");
             }
+        }
+
+        private void validateIfOutOfBoard(Position position)
+        {
+            bool lineLessThanMinimum = position.line < 0;
+            bool lineMoreThanMaximum = position.line > gameBoard.lines;
+            bool columnLessThanMinimum = position.column < 0;
+            bool columnMoreThanMaximum = position.column > gameBoard.columns;
+
+            if (lineLessThanMinimum || lineMoreThanMaximum || columnLessThanMinimum || columnMoreThanMaximum)
+            {
+                throw new BoardException("Out of board!");
+            }
+        }
+
+        private void validateIfPieceIsOwnedByPlayer(Position position)
+        {
             if (currentPlayer != gameBoard.piece(position).color)
             {
                 throw new BoardException("Piece in that position is not yours!");
-            }
-            if (!gameBoard.piece(position).isTherePossibleMoves())
-            {
-                throw new BoardException("No movements allowed to that position!");
             }
         }
 

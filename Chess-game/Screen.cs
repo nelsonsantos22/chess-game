@@ -10,7 +10,7 @@ namespace Chess_game
 
         public static void printMatch(ChessMatch chessMatch)
         {
-            printBoard(chessMatch.gameBoard);
+            printBoard(chessMatch.gameBoard, chessMatch);
             Console.WriteLine();
             printCapturedPieces(chessMatch);
             Console.WriteLine();
@@ -54,47 +54,91 @@ namespace Chess_game
             Console.Write("]");
         }
 
-        public static void printBoard(Board gameBoard)
+        public static void printBoard(Board gameBoard, ChessMatch currentChessMatch)
         {
-
-            for (int i = 0; i < gameBoard.lines; i++)
-            {
-                Console.Write(8 - i + " ");
-                for (int j = 0; j < gameBoard.columns; j++)
+            //if(currentChessMatch.currentPlayer == Color.White)
+            //{
+                for (int i = 0; i < gameBoard.lines; i++)
                 {
-                    printPiece(gameBoard.piece(i, j));
+                    Console.Write(8 - i + " ");
+
+                    for (int j = 0; j < gameBoard.columns; j++)
+                    {
+                        printPiece(gameBoard.piece(i, j));
+                    }
+                    Console.WriteLine();
                 }
-                Console.WriteLine();
-            }
-            Console.WriteLine("  a b c d e f g h");
+                Console.WriteLine("  a b c d e f g h");
+            //}
+            /*else
+            {
+                for (int i = gameBoard.lines - 1; i >= 0; i--)
+                {
+                    Console.Write(8 - i + " ");
+
+                    for (int j = gameBoard.columns - 1; j >= 0 ; j--)
+                    {
+                        printPiece(gameBoard.piece(i, j));
+                    }
+                    Console.WriteLine();
+                }
+                Console.WriteLine("  a b c d e f g h");
+            }*/
         }
 
-        public static void printBoard(Board gameBoard, bool[,] possiblePositions)
+        // print board with possibleMoves
+        public static void printBoard(Board gameBoard, bool[,] possiblePositions, ChessMatch currentMatch)
         {
 
             ConsoleColor originalBackground = Console.BackgroundColor;
             ConsoleColor possibleBackground = ConsoleColor.DarkGray;
-
-            for (int i = 0; i < gameBoard.lines; i++)
-            {
-                Console.Write(8 - i + " ");
-                for (int j = 0; j < gameBoard.columns; j++)
+            
+            //if(currentMatch.currentPlayer == Color.White)
+            //{
+                for (int i = 0; i < gameBoard.lines; i++)
                 {
-                    if (possiblePositions[i, j])
+                    Console.Write(8 - i + " ");
+                    for (int j = 0; j < gameBoard.columns; j++)
                     {
-                        Console.BackgroundColor = possibleBackground;
-                    }
-                    else
-                    {
+                        if (possiblePositions[i, j])
+                        {
+                            Console.BackgroundColor = possibleBackground;
+                        }
+                        else
+                        {
+                            Console.BackgroundColor = originalBackground;
+                        }
+                        printPiece(gameBoard.piece(i, j));
                         Console.BackgroundColor = originalBackground;
                     }
-                    printPiece(gameBoard.piece(i, j));
-                    Console.BackgroundColor = originalBackground;
+                    Console.WriteLine();
                 }
-                Console.WriteLine();
-            }
-            Console.WriteLine("  a b c d e f g h");
-            Console.BackgroundColor = originalBackground;
+                Console.WriteLine("  a b c d e f g h");
+                Console.BackgroundColor = originalBackground;
+            //}
+            /*else
+            {
+                for (int i = gameBoard.lines - 1; i >= 0; i--)
+                {
+                    Console.Write(1 + i + " ");
+                    for (int j = gameBoard.columns - 1; j >= 0; j--)
+                    {
+                        if (possiblePositions[i, j])
+                        {
+                            Console.BackgroundColor = possibleBackground;
+                        }
+                        else
+                        {
+                            Console.BackgroundColor = originalBackground;
+                        }
+                        printPiece(gameBoard.piece(i, j));
+                        Console.BackgroundColor = originalBackground;
+                    }
+                    Console.WriteLine();
+                }
+                Console.WriteLine("  a b c d e f g h");
+                Console.BackgroundColor = originalBackground;
+        }*/
         }
 
         public static ChessPosition readChessPosition()
